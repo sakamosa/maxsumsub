@@ -12,11 +12,15 @@ def maxSubarray1(array, results):
     maxSum = array[0]
     for i in range(0, arrayLen):
         for j in range(0, arrayLen):
-            curSum = sum(array[i:j])
-            if maxSum < curSum:
-              results[0] = i
-              results[1] = j
-              maxSum = curSum
+            curSum = 0
+            index = i
+            while index <=j:
+                curSum = curSum + array[index]
+                if maxSum < curSum:
+                    results[0] = i
+                    results[1] = j
+                    maxSum = curSum
+                index += 1
     results[2] = maxSum
     return results
 
