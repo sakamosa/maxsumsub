@@ -24,8 +24,8 @@ for time tests
 # open files for reading/writing
 in_file = open('MSS_Problems.txt', 'r')
 out_file = open('MSS_Results.txt', 'w')
-
-#infinite looping ... 
+#infinite looping ...
+out_file.write("Algorithm 1\n")
 while (1):
 	# read a line from file
 	line = in_file.readline()
@@ -41,11 +41,16 @@ while (1):
 	# if we remove this print statement we will need to make sure we still run t.timeit for clocking and to get result
 	print "Running time: " + str(t.timeit(number=1))
 	# write result as string to file
-	out_file.write(str(results))
+	out_file.write('[')
+	for i in range(results[0],results[1]):
+		out_file.write(str(line[i]) + ', ')
+	out_file.write(str(line[results[1]]) + ']')
 	out_file.write('\n')
+	out_file.write(str(results[2]))
+	out_file.write('\n\n')
 
-out_file.write('\n')
 # rewind to beginning of file and do it again with algorithm 2...
+out_file.write("Algorithm 2\n")
 in_file.seek(0)
 while (1):
 	line = in_file.readline()
@@ -55,11 +60,16 @@ while (1):
 	print "Algorithm 2"
 	t = Timer(lambda: maxsub.maxSubarray2(line, results))
 	print "Running time: " + str(t.timeit(number=1))
-	out_file.write(str(results))
+	out_file.write('[')
+	for i in range(results[0],results[1]):
+		out_file.write(str(line[i]) + ', ')
+	out_file.write(str(line[results[1]]) + ']')
 	out_file.write('\n')
+	out_file.write(str(results[2]))
+	out_file.write('\n\n')
 
-out_file.write('\n')
 # rewind to beginning of file and do it again with algorithm 3...
+out_file.write("Algorithm 3\n")
 in_file.seek(0)
 while (1):
 	line = in_file.readline()
@@ -72,8 +82,8 @@ while (1):
 	out_file.write(str(maxsub.maxSubarray3(line)))
 	out_file.write('\n')
 
-out_file.write('\n')
 # rewind to beginning of file and do it again with algorithm 4...
+out_file.write("Algorithm 4\n")
 in_file.seek(0)
 while (1):
 	line = in_file.readline()
@@ -83,8 +93,13 @@ while (1):
 	print "Algorithm 4"
 	t = Timer(lambda: maxsub.maxSubarray4(line, results))
 	print "Running time: " + str(t.timeit(number=1))
-	out_file.write(str(results))
+	out_file.write('[')
+	for i in range(results[0],results[1]):
+		out_file.write(str(line[i]) + ', ')
+	out_file.write(str(line[results[1]]) + ']')
 	out_file.write('\n')
+	out_file.write(str(results[2]))
+	out_file.write('\n\n')
 
 # close files
 out_file.close()
