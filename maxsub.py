@@ -8,6 +8,9 @@ Return Value:
 """
 #Enumeration
 def maxSubarray1(array, results):
+    results[0] = 0
+    results[1] = 0
+    results[2] = 0
     arrayLen = len(array)
     maxSum = array[0]
     for i in range(0, arrayLen):
@@ -26,6 +29,9 @@ def maxSubarray1(array, results):
 
 #Better Enumeration
 def maxSubarray2(array, results):
+    results[0] = 0
+    results[1] = 0
+    results[2] = 0
     arrayLen = len(array)
     maxSum = array[0]
     for i in range(0, arrayLen):
