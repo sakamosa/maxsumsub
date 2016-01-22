@@ -55,22 +55,21 @@ def maxSubarray3(array, start, end, results):
     if start == end:
         return array[start]
     else:
-        midpoint = arraylen/2 + start
+        midpoint = arraylen//2 + start
         x = maxSubarray3(array, start, midpoint, results)     
         y = maxSubarray3(array, midpoint +1, end, results)
         z1 = maxSuffix(array, start, midpoint, suffixRet)
         z2 = maxPrefix(array, midpoint +1, end, prefixRet)
-        print "suffixret/prefixret" + str(suffixRet) + "  " + str(prefixRet)
         z = z1 + z2
-        maxVal = max(x, y, z)
+        maxSum = max(x, y, z)
 
-        if (maxVal == z):
+        if (maxSum == z):
             start = prefixRet
             end = suffixRet
             
         results[0] = start
         results[1] = end
-        results[2] = maxVal
+        results[2] = maxSum
 
         return results
 
@@ -116,7 +115,6 @@ def maxSuffix(array, start, end, suffixRet):
             maxSuf = currentTotal
             suffixRet = i
         i -= 1
-    print "maxSuf " + str(maxSuf)
     return maxSuf
 
 #Max Prefix
