@@ -47,17 +47,30 @@ def maxSubarray2(array, results):
 
 #Divide and Conquer
 def maxSubarray3(array):
+    results = [0, 0, 0]
     arraylen = len(array)
     if arraylen == 0:
-        return float("-inf")
+        results[2] = float("-inf")
     if arraylen == 1:
-        return array[0]
+        results[2] = array[0]
     else:
         midpoint = arraylen/2
         x = maxSubarray3(array[0:midpoint])     
         y = maxSubarray3(array[midpoint:arraylen])
-        z = maxSuffix(array[0:midpoint]) + maxPrefix(array[midpoint:arraylen])
-        return max(x, y, z)
+        maxSuf = maxSuffix(array[0:midpoint])
+        maxPre = maxPrefix(array[midpoint:arraylen])
+        z = maxSuf[2] + maxPre[2] 
+        if (x[2] >= y[2]) and (x[2] >= z):
+            results = x
+        elif (y[2] >= x[2]) and (y[2] >= z):
+            results[0] = y[0] + midpoint
+            results[1] = y[1] + midpoint
+            results[2] = y[2]
+        else:
+            results[2] = z
+            results[0] = maxPre[1]
+            results[1] = maxSuf[2]
+    return results
 
 #Linear Time
 def maxSubarray4(array, results):
@@ -88,29 +101,48 @@ max suffix and prefix of an array
 
 #Max Suffix
 def maxSuffix(array):
-    if len(array) < 1:
-        return float("-inf")
+    results = [0, 0, 0]
     maxSuf = float("-inf")
-    currentTotal = 0
-    #start at the end of the array and iterate backwards
-    i = len(array)-1
-    while i >= 0:
-        currentTotal += array[i]
-        if maxSuf < currentTotal:
-            maxSuf = currentTotal
-        i -= 1
-    return maxSuf
+    if len(array) < 1:
+        results[2] = maxSuf
+        return results
+
+    else:
+        currentTotal = 0
+        #start at the end of the array and iterate backwards
+        i = len(array)-1
+        results[1] = i
+        while i >= 0:
+            currentTotal += array[i]
+            if maxSuf < currentTotal:
+                maxSuf = currentTotal
+                results[1] = i
+            i -= 1
+        results[2] = maxSuf
+        return results
+
 
 #Max Prefix
 def maxPrefix(array):
-    if len(array) < 1:
-        return float("-inf")
+    results = [0, 0, 0]
     maxPre = float("-inf")
-    currentTotal = 0
-    for i in array:
-        currentTotal += i
-        if maxPre < currentTotal:
-            maxPre = currentTotal
-    return maxPre
+    if len(array) < 1:
+        results[2] = maxPre
+        return results
+
+    else:
+        currentTotal = 0
+        results[0] = 0
+        #start at the beginning of the array and iterate forwards
+        i = 0
+        results[0] = i
+        while i < len(array):
+            currentTotal += array[i]
+            if maxPre < currentTotal:
+                maxPre = currentTotal
+                results[0] = i
+            i += 1
+        results[2] = maxPre
+        return results
 
 
