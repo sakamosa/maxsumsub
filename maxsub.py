@@ -46,32 +46,37 @@ def maxSubarray2(array, results):
     return results
 
 #Divide and Conquer
-def maxSubarray3(array, start, end, results):
-    suffixRet = ""
-    prefixRet = ""
+def maxSubarray3(array, start, end):
     arraylen = end - start
+
     if start > end:
-        return float("-inf")
+        arr = [float("-inf"), start, end]
+        return arr
     if start == end:
-        return array[start]
+        arr = [array[start], start, end]
+        return arr
     else:
         midpoint = arraylen//2 + start
-        x = maxSubarray3(array, start, midpoint, results)     
-        y = maxSubarray3(array, midpoint +1, end, results)
-        z1 = maxSuffix(array, start, midpoint, suffixRet)
-        z2 = maxPrefix(array, midpoint +1, end, prefixRet)
-        z = z1 + z2
-        maxSum = max(x, y, z)
+        x = maxSubarray3(array, start, midpoint)     
+        y = maxSubarray3(array, midpoint +1, end)
+        z1 = maxSuffix(array, start, midpoint)
+        z2 = maxPrefix(array, midpoint +1, end)
 
-        if (maxSum == z):
-            start = prefixRet
-            end = suffixRet
-            
-        results[0] = start
-        results[1] = end
-        results[2] = maxSum
+        sumz = z1[1] + z2[1]
+        maxSum = max(x[0], y[0], sumz)
+        print "maxsum: " + str(maxSum)
+        if (maxSum == x[0]):
+            start = x[1]
+            end = x[2]
+        elif (maxSum == y[0]):
+            start = y[1]
+            end = y[2]
+        else:
+            start = z1[0]
+            end = z2[0]
 
-        return results
+        arr = [maxSum, start, end]
+        return arr
 
 #Linear Time
 def maxSubarray4(array, results):
@@ -101,7 +106,7 @@ max suffix and prefix of an array
 """
 
 #Max Suffix
-def maxSuffix(array, start, end, suffixRet):
+def maxSuffix(array, start, end):
     if (end - start) < 0:
         return float("-inf")
     maxSuf = float("-inf")
@@ -115,10 +120,11 @@ def maxSuffix(array, start, end, suffixRet):
             maxSuf = currentTotal
             suffixRet = i
         i -= 1
-    return maxSuf
+    arr = [suffixRet, maxSuf]
+    return arr
 
 #Max Prefix
-def maxPrefix(array, start, end, prefixRet):
+def maxPrefix(array, start, end):
     if (end - start) < 0:
         return float("-inf")
     maxPre = float("-inf")
@@ -132,6 +138,7 @@ def maxPrefix(array, start, end, prefixRet):
             maxPre = currentTotal
             prefixRet = j
         i += 1
-    return maxPre
+    arr = [prefixRet, maxPre]
+    return arr
 
 

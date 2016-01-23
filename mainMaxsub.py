@@ -22,7 +22,7 @@ for time tests
 """
 
 # open files for reading/writing
-in_file = open('MSS_TestProblems.txt', 'r')
+in_file = open('MSS_Problems.txt', 'r')
 out_file = open('MSS_Results.txt', 'w')
 #infinite looping ...
 # out_file.write("Algorithm 1\n")
@@ -79,19 +79,20 @@ while (1):
 	print "Algorithm 3"
 	start = 0
 	end = len(line) -1
-	t = Timer(lambda: maxsub.maxSubarray3(line, start, end, results))
+	t = Timer(lambda: maxsub.maxSubarray3(line, start, end))
 	res = t.timeit(number=1)
 	print "Running time: " + str(res)
-	res = maxsub.maxSubarray3(line, start, end, results)
-	print res
+	res = maxsub.maxSubarray3(line, start, end)
+	print res[0]
     
+	#j = res[2] - res[1] +1
 	out_file.write('[')
-	if (start < end):
-		for i in range(start, end -1):
+	if (res[1] < res[2]):
+		for i in range(res[1], res[2]):
 			out_file.write(str(line[i]) + ', ')
-	out_file.write(str(line[results[1]]) + ']')
+	out_file.write(str(line[res[2]]) + ']')
 	out_file.write('\n')
-	out_file.write(str(results[2]))
+	out_file.write(str(res[0]))
 	out_file.write('\n\n')
 
 # rewind to beginning of file and do it again with algorithm 4...
