@@ -50,6 +50,7 @@ def maxSubarray3(array, start, end):
     arraylen = end - start
 
     if start > end:
+        print "in neg infinity"
         arr = [float("-inf"), start, end]
         return arr
     if start == end:
@@ -64,7 +65,6 @@ def maxSubarray3(array, start, end):
 
         sumz = z1[1] + z2[1]
         maxSum = max(x[0], y[0], sumz)
-        print "maxsum: " + str(maxSum)
         if (maxSum == x[0]):
             start = x[1]
             end = x[2]
@@ -136,7 +136,7 @@ def maxPrefix(array, start, end):
         currentTotal += array[i]
         if maxPre < currentTotal:
             maxPre = currentTotal
-            prefixRet = j
+            prefixRet = i
         i += 1
     arr = [prefixRet, maxPre]
     return arr
