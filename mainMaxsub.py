@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+
 """ CS 325 Project 1: Maximum sum Subarray Group 13: Janel Buckingham,
 Alisha-Crawley Davis, Sara Sakamoto """
 
